@@ -3,7 +3,7 @@ package biz
 import (
 	"context"
 
-	v1 "kratos-realworld/api/helloworld/v1"
+	v1 "kratos-realworld/api/realworld/v1"
 
 	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
@@ -19,8 +19,8 @@ type Greeter struct {
 	Hello string
 }
 
-// GreeterRepo is a Greater repo.
-type GreeterRepo interface {
+// RealWorldRepo is a Greater repo.
+type RealWorldRepo interface {
 	Save(context.Context, *Greeter) (*Greeter, error)
 	Update(context.Context, *Greeter) (*Greeter, error)
 	FindByID(context.Context, int64) (*Greeter, error)
@@ -28,19 +28,19 @@ type GreeterRepo interface {
 	ListAll(context.Context) ([]*Greeter, error)
 }
 
-// GreeterUsecase is a Greeter usecase.
-type GreeterUsecase struct {
-	repo GreeterRepo
+// RealWorldUsecase is a Greeter usecase.
+type RealWorldUsecase struct {
+	repo RealWorldRepo
 	log  *log.Helper
 }
 
 // NewGreeterUsecase new a Greeter usecase.
-func NewGreeterUsecase(repo GreeterRepo, logger log.Logger) *GreeterUsecase {
-	return &GreeterUsecase{repo: repo, log: log.NewHelper(logger)}
+func NewGreeterUsecase(repo RealWorldRepo, logger log.Logger) *RealWorldUsecase {
+	return &RealWorldUsecase{repo: repo, log: log.NewHelper(logger)}
 }
 
-// CreateGreeter creates a Greeter, and returns the new Greeter.
-func (uc *GreeterUsecase) CreateGreeter(ctx context.Context, g *Greeter) (*Greeter, error) {
-	uc.log.WithContext(ctx).Infof("CreateGreeter: %v", g.Hello)
+// CreateRealworld creates a Greeter, and returns the new Greeter.
+func (uc *RealWorldUsecase) CreateRealworld(ctx context.Context, g *Greeter) (*Greeter, error) {
+	uc.log.WithContext(ctx).Infof("CreateRealworld: %v", g.Hello)
 	return uc.repo.Save(ctx, g)
 }
